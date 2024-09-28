@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BitsOrchestraTestApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b3ad7fe34ff7f8d0601e45be55dc73df74df4cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c62f17b15a602a93f86b47dcfe0f120f97a9b31e")]
 [assembly: System.Reflection.AssemblyProductAttribute("BitsOrchestraTestApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BitsOrchestraTestApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
