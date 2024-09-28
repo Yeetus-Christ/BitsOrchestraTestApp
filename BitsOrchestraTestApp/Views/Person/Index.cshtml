@@ -1,0 +1,165 @@
+﻿@using BitsOrchestraTestApp.Dtos
+@model IEnumerable<PersonDto>
+
+<h2>CSV Data</h2>
+
+<table id="personsTable" class="table">
+    <thead>
+        <tr>
+            <th><input type="text" id="nameFilter" placeholder="Name" /></th>
+            <th><input type="text" id="dobFilter" placeholder="Date of birth" /></th>
+            <th><input type="text" id="marriedFilter" placeholder="Married" /></th>
+            <th><input type="text" id="phoneFilter" placeholder="Phone" /></th>
+            <th><input type="text" id="salaryFilter" placeholder="Salary" /></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th onclick="sortTable(0)">Name</th>
+            <th onclick="sortTable(1)">Date of Birth</th>
+            <th onclick="sortTable(2)">Married</th>
+            <th onclick="sortTable(3)">Phone</th>
+            <th onclick="sortTable(4)">Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var person in Model)
+        {
+            <tr data-id="@person.Id">
+                <td contenteditable="true">@person.Name</td>
+                <td contenteditable="true">@person.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                <td contenteditable="true">@person.Married</td>
+                <td contenteditable="true">@person.Phone</td>
+                <td contenteditable="true">@person.Salary</td>
+                <td>
+                    <button class="delete-btn btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    document.querySelectorAll('input[id$="Filter"]').forEach(input => {
+        input.addEventListener('input', function () {
+            const filterName = document.getElementById('nameFilter').value.toLowerCase();
+            const filterDob = document.getElementById('dobFilter').value.toLowerCase();
+            const filterMarried = document.getElementById('marriedFilter').value.toLowerCase();
+            const filterPhone = document.getElementById('phoneFilter').value.toLowerCase();
+            const filterSalary = document.getElementById('salaryFilter').value.toLowerCase();
+
+            const rows = document.querySelectorAll('#personsTable tbody tr');
+
+            rows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const dob = row.cells[1].textContent.toLowerCase();
+                const married = row.cells[2].textContent.toLowerCase();
+                const phone = row.cells[3].textContent.toLowerCase();
+                const salary = row.cells[4].textContent.toLowerCase();
+
+                const isVisible =
+                    (filterName === '' || name.includes(filterName)) &&
+                    (filterDob === '' || dob.includes(filterDob)) &&
+                    (filterMarried === '' || married.includes(filterMarried)) &&
+                    (filterPhone === '' || phone.includes(filterPhone)) &&
+                    (filterSalary === '' || salary.includes(filterSalary));
+
+                row.style.display = isVisible ? '' : 'none';
+            });
+        });
+    });
+
+    document.querySelectorAll('td[contenteditable="true"]').forEach(cell => {
+        cell.addEventListener('blur', function () {
+            const row = cell.closest('tr');
+            const id = row.dataset.id;
+
+            const name = row.children[0].textContent.trim();
+            const dob = row.children[1].textContent.trim();
+            const married = row.children[2].textContent.trim().toLowerCase();
+            const phone = row.children[3].textContent.trim();
+            const salaryText = row.children[4].textContent.trim();
+            const salary = parseFloat(salaryText);
+
+            const errors = [];
+
+            if (name === '') {
+                errors.push("Name cannot be empty.");
+            }
+            if (!isValidDate(dob)) {
+                errors.push("Invalid Date of Birth. Use format YYYY-MM-DD.");
+            }
+            if (married !== 'true' && married !== 'false') {
+                errors.push("Married must be true or false.");
+            }
+            if (phone === '') {
+                errors.push("Phone cannot be empty.");
+            }
+            if (isNaN(salary) || salary < 0) {
+                errors.push("Salary must be a positive number.");
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join("\n"));
+                return;
+            }
+
+            const updatedPerson = {
+                id: id,
+                name: name,
+                dateOfBirth: dob,
+                married: married === 'true',
+                phone: phone,
+                salary: salary
+            };
+
+            fetch('/person/edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedPerson)
+            });
+        });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const row = btn.closest('tr');
+            const id = row.dataset.id;
+
+            fetch('/person/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(id)
+            }).then(() => {
+                row.remove();
+            });
+        });
+    });
+
+    function isValidDate(dateString) {
+        const regEx = /^\d{4}-\d{2}-\d{2}$/;
+        return dateString.match(regEx) !== null && !isNaN(new Date(dateString).getTime());
+    }
+
+    function sortTable(columnIndex) {
+        const table = document.getElementById("personsTable");
+        const tbody = table.tBodies[0];
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        const isAscending = !tbody.dataset.sortOrder || tbody.dataset.sortOrder === "desc";
+
+        rows.sort((rowA, rowB) => {
+            const cellA = rowA.cells[columnIndex].textContent;
+            const cellB = rowB.cells[columnIndex].textContent;
+
+            return cellA.localeCompare(cellB, undefined, { numeric: true }) * (isAscending ? 1 : -1);
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+        tbody.dataset.sortOrder = isAscending ? "asc" : "desc";
+    }
+</script>

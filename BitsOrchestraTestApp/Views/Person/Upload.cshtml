@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Upload CSV";
+}
+
+<h2>Upload CSV File</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data" asp-action="Upload" id="uploadForm">
+    <div class="form-group">
+        <label for="file" style="margin-bottom: 10px">Choose CSV File</label>
+        <input type="file" name="file" id="fileInput" class="form-control" style="margin-bottom: 10px" />
+        <span id="fileError" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+        var fileInput = document.getElementById('fileInput');
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.csv)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+            e.preventDefault();
+            document.getElementById('fileError').innerText = 'Please upload a valid CSV file.';
+            fileInput.value = '';
+        } else {
+            document.getElementById('fileError').innerText = '';
+        }
+    });
+</script>
