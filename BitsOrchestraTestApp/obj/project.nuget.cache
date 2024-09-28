@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DfLV8UZI9Fg7Q8mThmE1ZxnO5MK7L5BiBjw7Bsr2eh8i0a27K0sMLe/ZTgXCdho/YoxtEC+3TUgigZRfLtmbkA==",
+  "dgSpecHash": "8HB7jISi/r6eH5gpXas0SSmUUuTxdXMslKSuo0gzpUVoPTqPL+D0o/fH2OK25FM/pV1WectqIQbvBTCRimvIgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yeetus Christ\\source\\repos\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
+  "projectFilePath": "C:\\Users\\Yeetus Christ\\Desktop\\TestTasks\\BitsOrchestra\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yeetus Christ\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Yeetus Christ\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

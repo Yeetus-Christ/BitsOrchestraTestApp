@@ -20,7 +20,16 @@ namespace BitsOrchestraTestApp.Services
         {
             using var reader = new StreamReader(csvStream);
             var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            var records = csv.GetRecords<PersonUploadDto>().ToList();
+            var records = new List<PersonUploadDto>();
+
+            try
+            {
+                records = csv.GetRecords<PersonUploadDto>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
             var persons = new List<Person>();
 

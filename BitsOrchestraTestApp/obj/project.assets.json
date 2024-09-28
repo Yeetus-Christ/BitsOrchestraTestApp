@@ -4154,11 +4154,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yeetus Christ\\source\\repos\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
+      "projectUniqueName": "C:\\Users\\Yeetus Christ\\Desktop\\TestTasks\\BitsOrchestra\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
       "projectName": "BitsOrchestraTestApp",
-      "projectPath": "C:\\Users\\Yeetus Christ\\source\\repos\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
+      "projectPath": "C:\\Users\\Yeetus Christ\\Desktop\\TestTasks\\BitsOrchestra\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\BitsOrchestraTestApp.csproj",
       "packagesPath": "C:\\Users\\Yeetus Christ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yeetus Christ\\source\\repos\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\obj\\",
+      "outputPath": "C:\\Users\\Yeetus Christ\\Desktop\\TestTasks\\BitsOrchestra\\BitsOrchestraTestApp\\BitsOrchestraTestApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
